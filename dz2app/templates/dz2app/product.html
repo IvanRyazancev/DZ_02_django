@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title%} {{ title }} {% endblock %}
+
+{% block content%}
+    <h3>Создайте новый продукт</h3>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <input type="submit" value="Отправить">
+    </form>
+
+    <h1>Уже созданные продукты: </h1>
+
+    {% for product in products %}
+        <p>{{ product }}</p>
+        {% if product.photo and product.photo.url != '/media/brad.jpg' %}
+            <img src="{{ product.photo.url }}" alt="{{ product.name }}" width="50" height="50">
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+    <h3>Приходите к нам еще, дорогой покупатель!!!</h3>
+{% endblock %}

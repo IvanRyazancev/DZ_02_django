@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.name }}'s Products{% endblock %}
+
+{% block content %}
+    <h2>Все продукты покупателя {{ user.name }} за {{ days }} дней</h2>
+    <table>
+        {% for product in products %}
+            <tr>
+               <td>{{ product.name }} по цене {{ product.price }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block footer %}
+    <h3>Приходите к нам еще, дорогой {{ user.name }}!!!</h3>
+{% endblock %}
