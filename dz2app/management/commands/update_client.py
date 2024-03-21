@@ -1,14 +1,22 @@
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from dz2app.models import Client
+
 class Command(BaseCommand):
-    help = "Update user name by id."
+    help = 'Обновляет имя продукта по его ID'
+
     def add_arguments(self, parser):
-        parser.add_argument('pk', type=int, help='User ID')
-        parser.add_argument('client', type=str, help='User name')
-    def handle(self, *args, **kwargs):
-        pk = kwargs.get('pk')
-        name = kwargs.get('client')
-        client = Client.objects.filter(pk=pk).first()
-        client.name = name
-        client.save()
-        self.stdout.write(f'{client}')
+        parser.add_argument('client_id', type=int)
+        parser.add_argument('new_name', type=str)
+
+    def handle(self, *args, **options):
+        client_id = options['client_id']
+        new_name = options['new_name']
+
+        try:
+            client = Client.objects.get(id=client_id)
+            client.client = new_name
+            client.save()
+            self.stdout.write(self.style.SUCCESS(f'Product with id "{client_id}" has been updated with new name '
+                                                 f'"{new_name}".'))
+        except Client.DoesNotExist:
+            raise CommandError(f'Product with id "{client_id}" does not exist.')

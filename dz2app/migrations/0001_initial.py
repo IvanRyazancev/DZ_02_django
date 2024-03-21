@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('product', models.CharField(max_length=128)),
                 ('description', models.TextField()),
+                ('price', models.DecimalField()),
                 ('quantity', models.IntegerField()),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
             ],
