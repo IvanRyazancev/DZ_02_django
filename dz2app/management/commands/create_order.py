@@ -3,6 +3,7 @@ from dz2app.models import Order, Client, Product
 from random import randint, choice
 
 
+
 class Command(BaseCommand):
     help = "Create order."
 
